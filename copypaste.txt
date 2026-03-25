@@ -1,0 +1,22 @@
+def clean_heartrate_data(data):
+    # Step 1: Remove invalid entries
+    filtered = [x for x in data if x is not None and x != 'NO DATA']
+
+    # Step 2: Convert to integers
+    cleaned = []
+    for x in filtered:
+        try:
+            cleaned.append(int(x))
+        except ValueError:
+            continue  # skip anything that can't be converted
+
+    return cleaned
+
+# Example usage (you must pass data here)
+raw_data = [72, '85', None, 'NO DATA', '90', 'abc']
+cleaned_data = clean_heartrate_data(raw_data)
+
+print(cleaned_data)
+
+
+
