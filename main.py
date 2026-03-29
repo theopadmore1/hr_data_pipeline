@@ -1,26 +1,31 @@
 def clean_heartrate_data(data: list) -> tuple:
-    """
-    """
-    pass
+    #Step 1: Remove invalid entries
+    filtered = (x for x in data if x not in (None, 'NO DATA', ''))
 
+        #Step 2: Convert to integers
+    cleaned = []
+    for x in filtered: 
+        try:
+            cleaned.append(int(x))
+        except ValueError:
+            continue #skip anything that can't be converted
 
-def average(data: list) -> float:
-    """
-    Calculate average of a list of integers using a for-loop. Assumes data is clean.
-    """
-    pass
+    return cleaned 
 
+def average(data):
+    return sum(data) / len(data)
 
-def median(data: list) -> float:
-    """
-    """
-    pass
+def median(data):
+    sorted_data = sorted(data)
+    n = len(sorted_data) 
+    if n % 2 == 0:
+        return(sorted_data[n//2-1] + sorted_data[n//2]) /2
+    else:
+        return sorted_data[n//2]
 
+def data_range(data):
+    return max(data) - min(data)
 
-def range(data: list) -> float:
-    """
-    """
-    pass
 
 
 def rolling_avg(data: list, k: int) -> float:
@@ -54,57 +59,33 @@ def run(file: str):
             data.append(line.strip())
 
     # Use `clean_heartrate_data` to clean the data and remove invalid entries
-    def clean_heartrate_data(data):
-        #Step 1: Remove invalid entries
-        filtered = [x for x in data if not None and x != 'NO DATA' and x 1= ""]
+   
 
-        #Step 2: Convert to integers
-    cleaned = []
-    for x in filter: 
-        try:
-            cleaned.append(int(x))
-        except ValueError:
-            continue #skip anything that can't be converted
-
-    return cleaned     
-
-cleaned_data = clean_heartrate_data(data)    
+    cleaned_data = clean_heartrate_data(data)    
 
         
 
 
     # calculate the average, median, and range of this file using the functions you've wrote
     
-def average(data):
-    return sum(data) / len(data)
 
-def median(data):
-    sorted_data = sorted(data)
-    n = len(sorted_data) 
-    if n % 2 == 0:
-        return(sorted_data[n//2-1] + sorted_data[n//2]) /2
-    else:
-        return sorted_data[n//2]
-
-def data_range(data):
-    return max(data) - min(data)
 
 
     # print out your data quality measure to the console
-total_entries = len(data)
-valid_entries = len(cleaned_data)
-invalid_entries = total_entries - valid_entries 
+    total_entries = len(data)
+    valid_entries = len(cleaned_data)
+    invalid_entries = total_entries - valid_entries 
 
     # print out your descriptive statistics to the console
-print('--Data Quality--')
-print(f'Total entries: {total_entries}')
-print(f'Valid entries: {valid_entries}')
-print(f'Invalid entries removed: {invalid_entries}')
+    print('--Data Quality--')
+    print(f'Total entries: {total_entries}')
+    print(f'Valid entries: {valid_entries}')
+    print(f'Invalid entries removed: {invalid_entries}')
 
-print('\n-- Descriptive Statistics --')
-print(f'Average: {average(cleaned_data):.2f}')
-print(f'Median: {median(cleaned_data)}')
-print(f'Range: {data_range(cleaned_data)}')
+    print('\n-- Descriptive Statistics --')
+    print(f'Average: {average(cleaned_data):.2f}')
+    print(f'Median: {median(cleaned_data)}')
+    print(f'Range: {data_range(cleaned_data)}')
 
 
 
